@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KodeMorse</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#" data-home>⌁ KodeMorse</a>
+  <nav>
+    <button id="loginBtn" class="small-btn">Login</button>
+    <button id="logoutBtn" class="small-btn hidden">Logout</button>
+    <button id="adminBtn" class="small-btn hidden">Admin</button>
+    <select id="languageSelect" aria-label="Language">
+      <option value="id">Indonesia</option><option value="en">English</option>
+      <option value="ja">日本語</option><option value="zh">中文</option>
+    </select>
+  </nav>
+</header>
+
+<main>
+<section id="homeView">
+  <section class="hero">
+    <div class="hero-card">
+      <span class="badge">● <span data-i18n="deviceTime">Waktu perangkat</span></span>
+      <h1 id="greeting">Halo!</h1>
+      <p id="dateText"></p><div id="clock" class="clock">00:00:00</div>
+      <p class="muted" data-i18n="tagline">Belajar Morse, sandi rahasia, dan menerjemahkan kode dengan mudah.</p>
+    </div>
+  </section>
+
+  <section class="announcement-wrap">
+    <div class="section-title"><h2 data-i18n="announcement">Announcement</h2><span id="announcementStatus"></span></div>
+    <div id="announcements" class="announcements"><div class="empty">Belum ada announcement.</div></div>
+  </section>
+
+  <section class="menu-grid">
+    <button class="menu-card" data-target="morseAlphabet"><b>·−</b><h2 data-i18n="morseAlphabet">Huruf Kode Morse</h2><p data-i18n="morseAlphabetDesc">Lihat alfabet Morse.</p></button>
+    <button class="menu-card" data-target="secretCodes"><b>🔐</b><h2 data-i18n="secretCodes">Sandi Rahasia</h2><p data-i18n="secretCodesDesc">Pelajari sandi populer.</p></button>
+    <button class="menu-card" data-target="textToMorse"><b>A → ·−</b><h2 data-i18n="textToMorse">Teks → Morse</h2><p data-i18n="textToMorseDesc">Konversi teks secara otomatis.</p></button>
+    <button class="menu-card" data-target="morseToText"><b>·− → A</b><h2 data-i18n="morseToText">Morse → Teks</h2><p data-i18n="morseToTextDesc">Terjemahkan Morse.</p></button>
+    <button class="menu-card" data-target="history"><b>📜</b><h2 data-i18n="history">Histori Saya</h2><p data-i18n="historyDesc">Lihat konversi akunmu.</p></button>
+  </section>
+</section>
+
+<section id="morseAlphabet" class="page hidden"><button class="back" data-home>← Kembali</button><h2 data-i18n="morseAlphabet">Huruf Kode Morse</h2><div id="morseTable" class="morse-table"></div></section>
+
+<section id="secretCodes" class="page hidden"><button class="back" data-home>← Kembali</button><h2 data-i18n="secretCodes">Sandi Rahasia</h2>
+<div class="secret-grid"><article><h3>Caesar Cipher</h3><p data-i18n="caesar">Setiap huruf digeser beberapa posisi.</p></article><article><h3>Atbash</h3><p data-i18n="atbash">Alfabet dibalik, A menjadi Z dan seterusnya.</p></article><article><h3>ROT13</h3><p data-i18n="rot13">Setiap huruf digeser 13 posisi.</p></article><article><h3>Binary</h3><p data-i18n="binary">Teks direpresentasikan dengan 0 dan 1.</p></article></div></section>
+
+<section id="textToMorse" class="page hidden converter"><button class="back" data-home>← Kembali</button><h2 data-i18n="textToMorse">Teks → Morse</h2><textarea id="textInput" placeholder="Ketik teks..."></textarea><div class="result-label">Hasil</div><div id="textMorseResult" class="result-box">—</div></section>
+
+<section id="morseToText" class="page hidden converter"><button class="back" data-home>← Kembali</button><h2 data-i18n="morseToText">Morse → Teks</h2><textarea id="morseInput" placeholder="Contoh: .... . .-.. .-.. --- / .-- --- .-. .-.. -.."></textarea><p class="muted">Pisahkan huruf dengan spasi dan kata dengan /.</p><div class="result-label">Hasil</div><div id="morseTextResult" class="result-box">—</div></section>
+
+<section id="history" class="page hidden"><button class="back" data-home>← Kembali</button><div class="section-title"><h2 data-i18n="history">Histori Saya</h2><button id="clearMyHistory" class="danger">Hapus semua</button></div><div id="myHistory"></div></section>
+
+<section id="admin" class="page hidden"><button class="back" data-home>← Kembali</button><h2>Admin Panel</h2>
+<div class="stats"><div><b id="statUsers">0</b><span>Users</span></div><div><b id="statConversions">0</b><span>Konversi</span></div><div><b id="statAnnouncements">0</b><span>Announcement</span></div></div>
+<div class="admin-box"><h3>Announcement baru</h3><input id="annTitle" placeholder="Judul"><textarea id="annBody" placeholder="Isi announcement"></textarea><button id="publishAnn" class="primary">Publish</button></div>
+<div class="admin-box"><h3>Announcement aktif</h3><div id="adminAnnouncements"></div></div>
+<div class="admin-box"><h3>Histori seluruh pengguna</h3><div class="filters"><input id="historySearch" placeholder="Cari user ID / teks"><select id="historyType"><option value="">Semua</option><option value="textToMorse">Teks → Morse</option><option value="morseToText">Morse → Teks</option></select></div><div id="allHistory"></div></div>
+</section>
+</main>
+<footer>© 2026 KodeMorse • Firebase</footer>
+
+<div id="loginModal" class="modal hidden"><div class="modal-card"><button class="x" id="closeLogin">×</button><h2>Masuk ke KodeMorse</h2><p class="muted">Login diperlukan untuk menyimpan histori ke akun.</p><button id="googleLogin" class="primary">Masuk dengan Google</button></div></div>
+
+<script type="module" src="script.js"></script>
+</body></html>
